@@ -1,0 +1,94 @@
+package projeto_bancario;
+
+import java.util.Scanner;
+
+public class projeto {
+	private double balance;
+
+	public projeto(double initialBalance) {
+        this.balance = initialBalance;
+    }
+	
+	//metodo de deposito
+	public void deposit(double amount) {
+		if (amount > 0) {
+			balance += amount;
+			System.out.println("Depositado: " + amount);
+		} else {
+			System.out.println("o valor do deposto deve ser positivo / valido");
+		}
+	}
+	
+	//metodo para debito
+	public void debit(double amount) {
+		if (amount > 0 && amount <= balance) {
+			System.out.println("Debitado: " + amount);
+		} else {
+			System.out.println("Saldo insuficiente ou valor de debito invalido.");
+		}
+	}
+	
+	/*metodo para credito
+	futuramente alterar isso para utilizar como cartao de credito com limite e solicitacao de aumento de limite.
+	eu ate tenho ideia de como fazer o cartão de credito so n sei como aplicar :D
+	o credito esta utilizando os mesmos parametros do*/
+	public void credit(double amount) {
+		if (amount > 0) {
+			balance += amount;
+			System.out.println("Creditado: " + amount);
+		} else {
+			System.out.println("O valor do credito deve ser positivo");
+		}
+	}
+	
+	//metodo para verificar o saldo
+	public double getbalance() {
+		return balance;
+	}
+	
+	//parte em que o usuario final interage
+	public static void main(String[] args) {
+	Scanner sc = new Scanner(System.in);
+	projeto myBank = new projeto(0);//saldo da conta , sei pq :(
+	
+	while (true) {
+		System.out.println("\nOperações do Banco:");
+        System.out.println("1. Depositar");
+        System.out.println("2. Debitar");
+        System.out.println("3. Creditar");
+        System.out.println("4. Ver saldo");
+        System.out.println("5. Sair");
+        System.out.print("Escolha uma operação: ");
+        
+        int choice = sc.nextInt();
+        double amount;
+        
+        switch (choice) {
+        	case 1:
+        		System.out.println("digite o valor para deposito: ");
+        		amount = sc.nextDouble();
+        		myBank.deposit(amount);
+        		break;
+        	case 2:
+        		System.out.println("digite o calor para debito: ");
+        		amount = sc.nextDouble();
+        		myBank.debit(amount);
+        		break;
+        	case 3:
+        		System.out.println("digite o valor para credito");
+        		amount = sc.nextDouble();
+        		myBank.credit(amount);
+        		break;
+        	case 4:
+        		System.out.println("saldo atual " + myBank.getbalance());
+        		break;
+        	case 5:
+        		System.out.println("saindo...");
+        		sc.close();
+        		System.exit(0);
+        	default:
+        		System.out.println("escolha invalida. tente novamente");
+       }   
+	 }
+  }
+}
